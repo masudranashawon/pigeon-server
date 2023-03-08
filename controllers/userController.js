@@ -54,7 +54,7 @@ const registerUser = async (req, res) => {
       .json({ _id: user._id, name, email, password: user.password, token });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err });
+    res.status(500).json(err);
   }
 };
 
@@ -87,7 +87,7 @@ const loginUser = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err });
+    res.status(500).json(err);
   }
 };
 
@@ -102,11 +102,23 @@ const findUser = async (req, res) => {
   try {
     const user = await userModel.findById(userId);
 
-    res.status(200).json({ user });
+    res.status(200).json(user);
   } catch (err) {
     console.log(err);
-    res.status(500).json({ err });
+    res.status(500).json(err);
   }
 };
 
-module.exports = { registerUser, loginUser, findUser };
+//get all users
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await userModel.find({});
+
+    res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
+module.exports = { registerUser, loginUser, findUser, getAllUsers };
