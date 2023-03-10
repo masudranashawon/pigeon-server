@@ -62,6 +62,12 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json("All fields are required and cannot be empty!");
+    }
+
     const user = await userModel.findOne({ email });
 
     if (!user) {
